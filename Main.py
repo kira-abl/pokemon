@@ -2,14 +2,14 @@ import requests
 import json
 
 def get_list():
-    response = requests.get("https://pokeapi.co/api/v2/pokemon?limit=3&offset=0")
+    response = requests.get("https://pokeapi.co/api/v2/pokemon?limit=1000&offset=0")
     data = response.json()
     #print(data)
     return data
 
 def get_random_number():
     from random import randint
-    random_number = randint(0, 2)
+    random_number = randint(0, 999)
     return random_number
 
 def select_pokemon(data, number):
@@ -64,11 +64,30 @@ def display_to_user(name, info):
     print(f"I have {number_of_cries} cries:\nGet my latest cry here: {info['cries']['latest']}.\nGet my legacy cry here: {info['cries']['legacy']}.")
 
 def main():
-    data = get_list()
-    number = get_random_number()
-    pokemon_basics = select_pokemon(data, number)
-    data_json = read_file()
-    pokemon_full_data = retrieve_details_and_update(pokemon_basics[0], data_json)
-    display_to_user(pokemon_basics[0], pokemon_full_data)
+    flag = 'run'
+    while flag == 'run':
+        choice = input("Would you like to draw a Pokemon? (Y/N)\n")
+        match choice:
+            case "Y":
+                data = get_list()
+                number = get_random_number()
+                pokemon_basics = select_pokemon(data, number)
+                data_json = read_file()
+                pokemon_full_data = retrieve_details_and_update(pokemon_basics[0], data_json)
+                display_to_user(pokemon_basics[0], pokemon_full_data)
+
+            case "N":
+                print("Thanks and goodbye.")
+                flag = 'stop'
+
+            case _:
+                print("This is not a valid selection.")
 
 main()
+
+
+
+
+
+
+
