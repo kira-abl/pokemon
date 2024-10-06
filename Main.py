@@ -67,25 +67,22 @@ def main():
     flag = 'run'
     while flag == 'run':
         choice = input("Would you like to draw a Pokemon? (Y/N)\n")
-        match choice:
-            case "Y":
-                data = get_list()
-                number = get_random_number()
-                pokemon_basics = select_pokemon(data, number)
-                data_json = read_file()
-                pokemon_full_data = retrieve_details_and_update(pokemon_basics[0], data_json)
-                display_to_user(pokemon_basics[0], pokemon_full_data)
+        if choice == "Y":
+            data = get_list()
+            number = get_random_number()
+            pokemon_basics = select_pokemon(data, number)
+            data_json = read_file()
+            pokemon_full_data = retrieve_details_and_update(pokemon_basics[0], data_json)
+            display_to_user(pokemon_basics[0], pokemon_full_data)
 
-            case "N":
-                print("Thanks and goodbye.")
-                flag = 'stop'
+        elif choice == "N":
+            print("Thanks and goodbye.")
+            flag = 'stop'
 
-            case _:
-                print("This is not a valid selection.")
+        else:
+            print("This is not a valid selection.")
 
 main()
-
-
 
 
 
